@@ -17,5 +17,5 @@ When('the project is scaffolded', async function () {
     node_modules: stubbedNodeModules
   });
 
-  this.results = await scaffold();
+  this.results = await scaffold({projectRoot: process.cwd()});
 });
