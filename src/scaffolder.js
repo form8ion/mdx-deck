@@ -5,6 +5,6 @@ export default async function ({projectRoot}) {
 
   return {
     devDependencies: ['mdx-deck'],
-    scripts: {start: 'mdx-deck deck.mdx'}
+    scripts: {start: 'mdx-deck deck.mdx --no-open'}
   };
 }

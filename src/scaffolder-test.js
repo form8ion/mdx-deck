@@ -21,7 +21,7 @@ suite('scaffolder', () => {
     const {devDependencies, scripts} = await scaffold({projectRoot});
 
     assert.deepEqual(devDependencies, ['mdx-deck']);
-    assert.deepEqual(scripts, {start: 'mdx-deck deck.mdx'});
+    assert.deepEqual(scripts, {start: 'mdx-deck deck.mdx --no-open'});
     assert.calledWith(fs.writeFile, `${projectRoot}/deck.mdx`, '# Hello World');
   });
 });
