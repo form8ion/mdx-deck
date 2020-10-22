@@ -1,3 +1,4 @@
+import {promises as fs} from 'fs';
 import {Then} from '@cucumber/cucumber';
 import {assert} from 'chai';
 
@@ -13,6 +14,13 @@ Then('smoke tests are wired up', async function () {
       'test:served':
         "start-server-and-test 'npm start' http://localhost:8000 'npm-run-all --print-label --parallel test:served:*'",
       'test:served:smoke': 'run-s cypress:run'
+    }
+  );
+  assert.deepEqual(
+    JSON.parse(await fs.readFile(`${process.cwd()}/cypress.json`)),
+    {
+      integrationFolder: 'test/smoke/',
+      baseUrl: 'http://localhost:8000'
     }
   );
 });

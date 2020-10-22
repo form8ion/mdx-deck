@@ -19,7 +19,9 @@ suite('testing scaffolder', () => {
   test('that cypress is configured for smoke testing', async () => {
     const projectRoot = any.string();
     const cypressResults = any.simpleObject();
-    cypressScaffolder.scaffold.withArgs({projectRoot, testDirectory: 'test/smoke/'}).resolves(cypressResults);
+    cypressScaffolder.scaffold
+      .withArgs({projectRoot, testDirectory: 'test/smoke/', testBaseUrl: 'http://localhost:8000'})
+      .resolves(cypressResults);
 
     assert.deepEqual(
       await scaffoldTesting({projectRoot}),
