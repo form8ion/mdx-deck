@@ -5,7 +5,11 @@ import {assert} from 'chai';
 Then('smoke tests are wired up', async function () {
   const {devDependencies, scripts} = this.results;
 
-  ['cypress', 'start-server-and-test'].forEach(dependency => assert.include(devDependencies, dependency));
+  [
+    'cypress',
+    'start-server-and-test',
+    'is-website-vulnerable'
+  ].forEach(dependency => assert.include(devDependencies, dependency));
   assert.include(
     scripts,
     {
@@ -13,7 +17,8 @@ Then('smoke tests are wired up', async function () {
       'cypress:open': 'cypress open',
       'test:served':
         "start-server-and-test 'npm start' http://localhost:8000 'npm-run-all --print-label --parallel test:served:*'",
-      'test:served:smoke': 'run-s cypress:run'
+      'test:served:smoke': 'run-s cypress:run',
+      'test:served:vulnerable': 'is-website-vulnerable http://localhost:8000'
     }
   );
   assert.deepEqual(

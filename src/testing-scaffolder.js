@@ -1,11 +1,18 @@
 import deepmerge from 'deepmerge';
 import {scaffold as scaffoldCypress} from '@form8ion/cypress-scaffolder';
+import {scaffold as scaffoldVulnerable} from '@form8ion/is-website-vulnerable';
 
 export default async function ({projectRoot}) {
   const devServerUrl = 'http://localhost:8000';
 
-  return deepmerge(
-    await scaffoldCypress({projectRoot, testDirectory: 'test/smoke/', testBaseUrl: devServerUrl}),
+  const [cypressResults, vulnerableResults] = await Promise.all([
+    scaffoldCypress({projectRoot, testDirectory: 'test/smoke/', testBaseUrl: devServerUrl}),
+    scaffoldVulnerable({baseUrl: devServerUrl})
+  ]);
+
+  return deepmerge.all([
+    cypressResults,
+    vulnerableResults,
     {
       scripts: {
         'test:served': 'start-server-and-test '
@@ -14,5 +21,5 @@ export default async function ({projectRoot}) {
       },
       devDependencies: ['start-server-and-test']
     }
-  );
+  ]);
 }

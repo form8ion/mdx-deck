@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "@form8ion/cypress-scaffolder": "2.2.0",
+    "@form8ion/is-website-vulnerable": "1.0.0-alpha.2",
     "deepmerge": "^4.2.2"
   }
 }
