@@ -11,7 +11,11 @@ export default async function ({projectRoot}) {
   return deepmerge(
     {
       devDependencies: ['mdx-deck'],
-      scripts: {start: 'mdx-deck deck.mdx --no-open'}
+      scripts: {
+        start: 'mdx-deck deck.mdx --no-open',
+        build: 'mdx-deck build deck.mdx'
+      },
+      buildDirectory: 'public'
     },
     testingResults
   );
