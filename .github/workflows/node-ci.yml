@@ -3,9 +3,8 @@ name: Node.js CI
   push:
     branches:
       - master
-      - alpha
       - beta
-      - 'renovate/**'
+      - renovate/**
   pull_request:
     types:
       - opened
@@ -26,10 +25,20 @@ jobs:
       - run: npm clean-install
       - run: npm test
       - uses: codecov/codecov-action@v3
-      - name: semantic-release
-        uses: cycjimmy/semantic-release-action@v2
+  trigger-release:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    needs:
+      - verify
+    steps:
+      - uses: octokit/request-action@v2.x
+        with:
+          route: >-
+            POST
+            /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+          owner: form8ion
+          repo: mdx-deck
+          ref: ${{ github.ref }}
+          workflow_id: release.yml
         env:
-          GITHUB_TOKEN: '${{ secrets.GH_TOKEN }}'
-          NPM_TOKEN: '${{ secrets.NPM_PUBLISH_TOKEN }}'
-      - name: Upload coverage data to Codecov
-        run: 'npm run coverage:report'
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
