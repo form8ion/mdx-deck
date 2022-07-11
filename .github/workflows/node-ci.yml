@@ -14,16 +14,18 @@ env:
   FORCE_COLOR: 1
   NPM_CONFIG_COLOR: always
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 12.x
-      - uses: bahmutov/npm-install@v1
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm clean-install
       - run: npm test
+      - uses: codecov/codecov-action@v3
       - name: semantic-release
         uses: cycjimmy/semantic-release-action@v2
         env:
