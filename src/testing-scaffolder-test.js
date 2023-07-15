@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import * as cypressScaffolder from '@form8ion/cypress-scaffolder';
+import cypressScaffolder from '@form8ion/cypress-scaffolder';
 import * as vulnerableScaffolder from '@form8ion/is-website-vulnerable';
 import sinon from 'sinon';
 import any from '@travi/any';
