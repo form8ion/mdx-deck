@@ -22,7 +22,7 @@ When('the project is scaffolded', async function () {
         'mdx-deck': {
           node_modules: {
             '.pnpm': {
-              '@form8ion+cypress-scaffolder@3.0.0': {
+              '@form8ion+cypress-scaffolder@3.0.2': {
                 node_modules: {
                   '@form8ion': {
                     'cypress-scaffolder': {
